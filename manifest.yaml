@@ -1,0 +1,45 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: wolkapps
+  name: wolkapps
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: wolkapps
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: wolkapps
+    spec:
+      containers:
+      - image: __ACR__/azwolkrepo:latest
+        name: wolkapp1
+        imagePullPolicy: Always
+        resources: {}
+status: {}
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: null
+  labels:
+    app: wolkapps
+  name: wolkapps
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: wolkapps
+  type: LoadBalancer
+status:
+  loadBalancer: {}
